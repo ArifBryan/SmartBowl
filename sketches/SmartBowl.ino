@@ -22,7 +22,7 @@ void setup(){
 	ledcWrite(0, 0);
 	delay(100);
 	
-	ledcWrite(0, 128);
+	ledcWrite(0, 30);
 	tft.init(240, 240, SPI_MODE2);
 	tft.fillScreen(ST77XX_BLACK);
   
