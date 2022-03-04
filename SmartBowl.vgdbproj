@@ -99,7 +99,7 @@
     </HexSettings>
     <LineEnding>LF</LineEnding>
     <TreatLFAsCRLF>false</TreatLFAsCRLF>
-    <KeepOpenAfterExit>true</KeepOpenAfterExit>
+    <KeepOpenAfterExit>false</KeepOpenAfterExit>
     <ShowAfterProgramming>false</ShowAfterProgramming>
   </DeviceTerminalSettings>
   <CustomShortcuts>
@@ -179,7 +179,7 @@
               <string>mon reset halt</string>
               <string>load</string>
             </StartupCommands>
-            <ProgramFLASHUsingExternalTool>false</ProgramFLASHUsingExternalTool>
+            <ProgramFLASHUsingExternalTool>true</ProgramFLASHUsingExternalTool>
             <PreferredGDBPort>0</PreferredGDBPort>
             <PreferredTelnetPort>0</PreferredTelnetPort>
             <AlwaysPassSerialNumber>false</AlwaysPassSerialNumber>
@@ -188,7 +188,7 @@
             <SuggestionLogicRevision>1</SuggestionLogicRevision>
             <CheckFLASHSize>true</CheckFLASHSize>
             <FLASHSettings>
-              <Size>size2MB</Size>
+              <Size>size4MB</Size>
               <Frequency>freq80M</Frequency>
               <Mode>DIO</Mode>
             </FLASHSettings>
