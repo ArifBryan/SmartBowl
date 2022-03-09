@@ -23,6 +23,9 @@
   </Project>
   <Build xsi:type="com.visualgdb.build.external.arduino">
     <BuildLogMode xsi:nil="true" />
+    <AdditionalLibraryDirectories>
+      <string>sketches</string>
+    </AdditionalLibraryDirectories>
     <IgnoreNormalLibraryDirectories>false</IgnoreNormalLibraryDirectories>
     <OutputSubdirectory>Output\$(PlatformName.defuse)\$(ConfigurationName.defuse)</OutputSubdirectory>
     <EnableVerboseBuild>false</EnableVerboseBuild>
