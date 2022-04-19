@@ -40,7 +40,7 @@ void setup(){
 	tft.fillScreen(ST77XX_WHITE);
   
 	Serial.begin(115200);
-	//SerialBT.begin("ESP32");
+	SerialBT.begin("ESP32");
 }
 
 uint32_t i;
@@ -98,9 +98,13 @@ void loop(){
 		else {
 			tft.print("Not charging ");
 		}
+		tft.setCursor(1, 105);
+		tft.print(i);
+		
+		SerialBT.println(i++);
+		i = (i >= 100 ? 0 : i);
 	}
 //	ledcWrite(0, val);
-//	SerialBT.println(i++);
 //	tft.invertDisplay(true);
 //	delay(100);
 //	tft.invertDisplay(false);
