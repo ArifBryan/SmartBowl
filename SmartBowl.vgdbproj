@@ -16,6 +16,8 @@
         <Subfolders />
         <Files>
           <string>SmartBowl.ino</string>
+          <string>Sensor.ino</string>
+          <string>UserInterface.ino</string>
         </Files>
       </RootSketchFolder>
       <OtherFiles />
