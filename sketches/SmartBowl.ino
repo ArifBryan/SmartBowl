@@ -53,7 +53,7 @@ void loop(){
 	adcFiltered = ((adcFiltered * kf) + LoadCell.get_value(1)) / (kf + 1);
 	vbat = analogRead(VBAT_SENSE);
 	Serial.println(vbat);
-	if (millis() - dspTmr >= 250) {
+	if (millis() - dspTmr >= 500) {
 		dspTmr = millis();
 		if (!digitalRead(CHG_CON)) {
 			if (!digitalRead(CHG_STA)) {
@@ -78,8 +78,9 @@ void loop(){
 		tft.setTextColor(ST77XX_BLACK, ST77XX_WHITE);
 		tft.setCursor(1, 26);
 		tft.print("Val. : ");
-		tft.print(adcFiltered);
+		tft.print(adcFiltered / 1000);
 		tft.print(" ");
+		SerialBT.println(abs(adcFiltered / 1000));
 		
 		tft.setCursor(1, 52);
 		tft.print("VBat : ");
@@ -101,8 +102,6 @@ void loop(){
 		tft.setCursor(1, 105);
 		tft.print(i);
 		
-		SerialBT.println(i++);
-		i = (i >= 100 ? 0 : i);
 	}
 //	ledcWrite(0, val);
 //	tft.invertDisplay(true);
