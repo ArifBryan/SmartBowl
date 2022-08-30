@@ -225,7 +225,7 @@
         <DebugMethod>
           <ID>openocd</ID>
           <InterfaceID>esp32-devkit</InterfaceID>
-          <InterfaceSerialNumber>5&amp;32D042FB&amp;0&amp;6</InterfaceSerialNumber>
+          <InterfaceSerialNumber>5&amp;3B4D23A2&amp;0&amp;5</InterfaceSerialNumber>
           <Configuration xsi:type="com.visualgdb.edp.openocd.settings.esp32">
             <CommandLine>-f interface/ftdi/esp32_devkitj_v1.cfg -c "set ESP32_FLASH_VOLTAGE 3.3" -f target/esp32.cfg</CommandLine>
             <ExtraParameters>
@@ -280,7 +280,7 @@
           <Entries>
             <KeyValue>
               <Key>PSRAM</Key>
-              <Value>disabled</Value>
+              <Value>enabled</Value>
             </KeyValue>
             <KeyValue>
               <Key>PartitionScheme</Key>
