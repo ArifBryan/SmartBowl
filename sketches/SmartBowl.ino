@@ -24,10 +24,11 @@ HX711 LoadCell;
 
 void setup(){
 	pinMode(PWR_LATCH, OUTPUT);
+	digitalWrite(PWR_LATCH, HIGH);
+	pinMode(TFT_BKLT, OUTPUT);
 	pinMode(CHG_CON, INPUT_PULLUP);
 	pinMode(CHG_STA, INPUT_PULLUP);
 	pinMode(BTN_PWR, INPUT_PULLUP);
-	digitalWrite(PWR_LATCH, HIGH);
 	ledcSetup(0, 5000, 8);
 	ledcAttachPin(TFT_BKLT, 0);
 	ledcWrite(0, 0);
