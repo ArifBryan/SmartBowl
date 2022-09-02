@@ -40,7 +40,7 @@ void setup(){
 	tft.fillScreen(ST77XX_WHITE);
   
 	Serial.begin(115200);
-	SerialBT.begin("ESP32");
+	SerialBT.begin("BOWELL");
 }
 
 uint32_t i;
@@ -52,7 +52,7 @@ uint32_t dspTmr;
 void loop(){
 	adcFiltered = ((adcFiltered * kf) + LoadCell.get_value(1)) / (kf + 1);
 	vbat = analogRead(VBAT_SENSE);
-	Serial.println(vbat);
+	//Serial.println(vbat);
 	if (millis() - dspTmr >= 500) {
 		dspTmr = millis();
 		if (!digitalRead(CHG_CON)) {
@@ -80,7 +80,7 @@ void loop(){
 		tft.print("Val. : ");
 		tft.print(adcFiltered / 1000);
 		tft.print(" ");
-		SerialBT.println(abs(adcFiltered / 1000));
+		//SerialBT.println(abs(adcFiltered / 1000));
 		
 		tft.setCursor(1, 52);
 		tft.print("VBat : ");
@@ -102,6 +102,9 @@ void loop(){
 		tft.setCursor(1, 105);
 		tft.print(i);
 		
+	}
+	while (SerialBT.available()) {
+		Serial.write(SerialBT.read());
 	}
 //	ledcWrite(0, val);
 //	tft.invertDisplay(true);
