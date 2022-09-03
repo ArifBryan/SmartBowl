@@ -17,10 +17,18 @@
         <Files>
           <string>SmartBowl.ino</string>
           <string>Sensor.ino</string>
+          <string>System.ino</string>
           <string>UserInterface.ino</string>
+          <string>Bluetooth.ino</string>
         </Files>
       </RootSketchFolder>
-      <OtherFiles />
+      <OtherFiles>
+        <string>sketches\Sensor.h</string>
+        <string>sketches\Pins.h</string>
+        <string>sketches\System.h</string>
+        <string>sketches\UserInterface.h</string>
+        <string>sketches\Bluetooth.h</string>
+      </OtherFiles>
     </ProjectModeSettings>
   </Project>
   <Build xsi:type="com.visualgdb.build.external.arduino">
@@ -111,7 +119,7 @@
       <TimeoutForAutoBreak>0</TimeoutForAutoBreak>
     </HexSettings>
     <LineEnding>LF</LineEnding>
-    <TreatLFAsCRLF>false</TreatLFAsCRLF>
+    <TreatLFAsCRLF>true</TreatLFAsCRLF>
     <KeepOpenAfterExit>false</KeepOpenAfterExit>
     <ShowAfterProgramming>false</ShowAfterProgramming>
   </DeviceTerminalSettings>
@@ -280,7 +288,7 @@
           <Entries>
             <KeyValue>
               <Key>PSRAM</Key>
-              <Value>enabled</Value>
+              <Value>disabled</Value>
             </KeyValue>
             <KeyValue>
               <Key>PartitionScheme</Key>
