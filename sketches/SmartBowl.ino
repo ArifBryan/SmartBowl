@@ -10,7 +10,7 @@ void Startup_Handler() {
 }
 
 void Shutdown_Handler() {
-	
+	ui.SetBrightness(0);
 }
 
 void setup(){

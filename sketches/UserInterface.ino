@@ -16,10 +16,10 @@ void UserInterface_TypeDef::Init() {
 	ledcSetup(0, 5000, 8);
 	ledcAttachPin(TFT_BKLT, 0);
 	
-	SetBrightness(10);
 	lcd.init(240, 240, SPI_MODE2);
 	lcd.setRotation(1);
 	lcd.fillScreen(ST77XX_WHITE);
+	SetBrightness(10);
 }
 
 void UserInterface_TypeDef::Handler() {
