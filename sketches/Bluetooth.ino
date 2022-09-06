@@ -25,8 +25,34 @@ void Bluetooth_TypeDef::Handler() {
 	}
 	
 	if (rxNewData) {
-		rxNewData = 0;
+		
 		Serial.print(rxBuff);
+		rxNewData = 0;
 		memset(rxBuff, 0, 200);
 	}
+}
+
+bool IsCommand(char **str, const char *m) {
+	char abr[11];
+	uint8_t abrl = 0;
+	for (uint8_t i = 0; m[i]; i++) {
+		if (!islower(m[i])) {
+			abr[abrl++] = m[i];
+		}
+	}
+	abr[abrl] = 0;
+	
+	return strSkim(str, m) || strSkim(str, abr);
+}
+
+bool strMatch(const char *str1, const char *str2) {
+	bool s = strncmp(str1, str2, strlen(str2)) == 0;
+	return s;
+}
+bool strSkim(char **str1, const char *str2) {
+	bool s = strncmp(*str1, str2, strlen(str2)) == 0;
+	if (s) {
+		*str1 += strlen(str2);
+	}
+	return s;
 }
