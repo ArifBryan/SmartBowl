@@ -20,6 +20,7 @@
           <string>System.ino</string>
           <string>UserInterface.ino</string>
           <string>Bluetooth.ino</string>
+          <string>Config.ino</string>
         </Files>
       </RootSketchFolder>
       <OtherFiles>
@@ -28,6 +29,7 @@
         <string>sketches\System.h</string>
         <string>sketches\UserInterface.h</string>
         <string>sketches\Bluetooth.h</string>
+        <string>sketches\Config.h</string>
       </OtherFiles>
     </ProjectModeSettings>
   </Project>

@@ -5,12 +5,12 @@ Bluetooth_TypeDef bt;
 
 BluetoothSerial btSerial;
 
-bool strMatch(const char *str1, const char *str2) {
+bool strMatch(char *str1, const char *str2) {
 	bool s = strncmp(str1, str2, strlen(str2)) == 0;
 	return s;
 }
-bool strSkim(char *str1, const char *str2) {
-	bool s = strncmp(str1, str2, strlen(str2)) == 0;
+bool strSkim(char **str1, const char *str2) {
+	bool s = strncmp(*str1, str2, strlen(str2)) == 0;
 	if (s) {
 		*str1 += strlen(str2);
 	}
@@ -37,9 +37,35 @@ void Bluetooth_TypeDef::Handler() {
 	}
 	
 	if (rxNewData) {
-		Serial.print(rxBuff);
-		if (strSkim(rxBuff, "ADCRAW?")) {
-			btSerial.println(123);
+		char *data = rxBuff;
+		Serial.print(data);
+		
+		if (strSkim(&data, "WEIGHTRAW?")) {
+			btSerial.println(sens.GetRawData());
+		}
+		else if (strSkim(&data, "WEIGHT?")) {
+			btSerial.println(sens.GetWeight());
+		}
+		else if (strSkim(&data, "BATT?")) {
+			btSerial.println(sys.GetBattPercentage());
+		}
+		else if (strSkim(&data, "BATTV?")) {
+			btSerial.println(sys.GetVbat());
+		}
+		else if (strSkim(&data, "WEIGHTCAL:")) {
+			config.param.SensCal = atof(data);
+			config.Save();
+			sens.SetCalValue(config.param.SensCal);	
+		}
+		else if(strSkim(&data, "BATTCAL:")) {
+			config.param.VbatCal = atof(data);
+			config.Save();
+			sys.SetVbatCalValue(config.param.VbatCal);	
+		}
+		else if(strSkim(&data, "BRIGHT:")) {
+			config.param.Bright = atoi(data);
+			config.Save();
+			ui.SetBrightness(config.param.Bright);
 		}
 		rxNewData = 0;
 		memset(rxBuff, 0, 200);

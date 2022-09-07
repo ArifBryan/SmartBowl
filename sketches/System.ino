@@ -1,6 +1,8 @@
 #include "System.h"
 #include "Pins.h"
 
+#define VBAT_FILTER_KF	4
+
 System_TypeDef sys;
 
 void System_TypeDef::Init(void(*Startup_Callback)(void), void(*Shutdown_Callback)(void)) {
@@ -29,6 +31,7 @@ void System_TypeDef::Init(void(*Startup_Callback)(void), void(*Shutdown_Callback
 	pinMode(CHG_STA, INPUT_PULLUP);
 	pinMode(BTN_PWR, INPUT_PULLUP);
 	Startup_Callback();
+	vBat = analogRead(VBAT_SENSE) * vBatCal;
 	delay(100);
 }
 
@@ -41,16 +44,26 @@ void System_TypeDef::Handler() {
 	else {
 		pwrBtnTmr = millis();
 	}
+	
 	if (!digitalRead(CHG_CON)) {
 		if (!digitalRead(CHG_STA)) {
 			// Charging
+			chgStatus = 1;
 		}
 		else {
 			// Charged
+			chgStatus = 2;
 		}
 	}
 	else {
 		// Not charging
+		chgStatus = 0;
+	}
+	
+	if (millis() - sysTimer >= 500) {
+		vBat = (analogRead(VBAT_SENSE) * vBatCal + (vBat * VBAT_FILTER_KF)) / (VBAT_FILTER_KF + 1);
+		
+		sysTimer = millis();
 	}
 }
 

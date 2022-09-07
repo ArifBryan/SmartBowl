@@ -2,11 +2,16 @@
 #include "Bluetooth.h"
 #include "UserInterface.h"
 #include "Sensor.h"
+#include "Config.h"
 
 void Startup_Handler() {
+	config.Init();
+	sys.SetVbatCalValue(config.param.VbatCal);
+	sens.SetCalValue(config.param.SensCal);
 	ui.Init();
 	sens.Init();
 	bt.Init();
+	ui.SetBrightness(config.param.Bright);
 }
 
 void Shutdown_Handler() {
