@@ -1,7 +1,7 @@
 #include "System.h"
 #include "Pins.h"
 
-#define VBAT_FILTER_KF	4
+#define VBAT_FILTER_KF	10
 
 System_TypeDef sys;
 
