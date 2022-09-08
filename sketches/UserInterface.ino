@@ -30,15 +30,15 @@ void UserInterface_TypeDef::Handler() {
 		GFXcanvas16 frame1(209, 20);
 		
 		frame1.setFont(&FreeSans12pt7b);
-		frame1.setTextColor(ST77XX_BLACK);
+		frame1.setTextColor(ST77XX_DARKGREY);
 		frame1.fillScreen(ST77XX_WHITE);
 		frame1.setCursor(0, 18);
 		frame1.print("Test");
 		
 		GFXcanvas16 battInfo(28, 18);
 		battInfo.fillScreen(ST77XX_WHITE);
-		battInfo.fillRoundRect(0, 0, 25, 18, 2, ST77XX_BLACK);
-		battInfo.fillRect(25, 6, 3, 6, ST77XX_BLACK);
+		battInfo.fillRoundRect(0, 0, 25, 18, 2, ST77XX_DARKGREY);
+		battInfo.fillRect(25, 6, 3, 6, ST77XX_DARKGREY);
 		
 		uint8_t bar = round(sys.GetBattPercentage() * 0.21);
 		uint32_t barColor = (sys.GetBattPercentage() > 20 ? ST77XX_WHITE : ST77XX_RED);
