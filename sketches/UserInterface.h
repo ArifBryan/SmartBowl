@@ -22,11 +22,23 @@
 #define RGB565_ORANGE 0xFD20      ///< 255, 165,   0
 #define RGB565_GREENYELLOW 0xAFE5 ///< 173, 255,  41
 
+struct TextBox_TypeDef {
+	TextBox_TypeDef(uint8_t xPos, uint8_t yPos) {
+		this->xPos = xPos;
+		this->yPos = yPos;
+	}
+	void DrawText(const char *txt);
+	
+private:
+	uint8_t xPos, yPos;
+};
+
 struct UserInterface_TypeDef {
 	void Init();
 	void Handler();
 	void SetBrightness(uint8_t bright);
 	void BootScreen();
+	TextBox_TypeDef Text[5] = { TextBox_TypeDef(0, 30), TextBox_TypeDef(0, 70), TextBox_TypeDef(0, 110), TextBox_TypeDef(0, 150), TextBox_TypeDef(0, 190) };
 	
 private:
 	uint32_t dispTimer;
