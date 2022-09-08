@@ -1,5 +1,7 @@
 #pragma once
 
+#define FW_VER	"1.2"
+
 #define POWERON_CAUSE_BTN	1
 #define POWERON_CAUSE_CHG	2
 

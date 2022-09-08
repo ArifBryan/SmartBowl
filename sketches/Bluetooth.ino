@@ -52,10 +52,22 @@ void Bluetooth_TypeDef::Handler() {
 		else if (strSkim(&data, "BATTV?")) {
 			btSerial.println(sys.GetVbat());
 		}
+		else if (strSkim(&data, "CHARGE?")) {
+			btSerial.println(sys.IsCharging() + sys.IsCharged());
+		}
+		else if (strSkim(&data, "VERSION?")) {
+			btSerial.print("v");
+			btSerial.println(FW_VER);
+		}
 		else if (strSkim(&data, "WEIGHTCAL:")) {
 			config.param.SensCal = atof(data);
 			config.Save();
 			sens.SetCalValue(config.param.SensCal);	
+		}
+		else if (strSkim(&data, "WEIGHTFIL:")) {
+			config.param.SensFil = atof(data);
+			config.Save();
+			sens.SetFilCoeff(config.param.SensCal);	
 		}
 		else if(strSkim(&data, "BATTCAL:")) {
 			config.param.VbatCal = atof(data);

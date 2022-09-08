@@ -11,6 +11,7 @@ void Startup_Handler() {
 	ui.Init();
 	sens.Init();
 	bt.Init();
+	ui.BootScreen();
 	ui.SetBrightness(config.param.Bright);
 }
 

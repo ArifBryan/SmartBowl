@@ -4,6 +4,7 @@
 
 struct Param_TypeDef {
 	float SensCal;
+	float SensFil;
 	float VbatCal;
 	uint8_t Bright;
 	uint8_t key;
@@ -16,6 +17,6 @@ struct Config_TypeDef {
 	void Init();
 };
 
-Param_TypeDef defParam = { 1, 1, 10, 0xAA };
+Param_TypeDef defParam = { 1, 5, 1, 10, 0xAA };
 
 extern Config_TypeDef config;

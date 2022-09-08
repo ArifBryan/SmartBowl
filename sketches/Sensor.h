@@ -17,6 +17,9 @@ struct Sensor_TypeDef{
 	void SetCalValue(float cal) {
 		this->cal = cal;
 	}
+	void SetFilCoeff(float kf) {
+		filterKf = kf;
+	}
 	
 private:
 	uint32_t sampleTmr;
@@ -25,6 +28,7 @@ private:
 	int32_t rawDataFiltered;
 	float weight;
 	uint32_t offset;
+	float filterKf;
 
 };
 
