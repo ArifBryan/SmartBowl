@@ -20,6 +20,12 @@ bool strSkim(char **str1, const char *str2) {
 void Bluetooth_TypeDef::Init() {
 	Serial.begin(115200);
 	btSerial.begin("BOWELL");
+	connected = 1;
+	connectTimer = millis() + 5000;
+}
+
+bool Bluetooth_TypeDef::IsConnected() {
+	return connected;
 }
 
 void Bluetooth_TypeDef::Handler() {
@@ -42,9 +48,10 @@ void Bluetooth_TypeDef::Handler() {
 	}
 	
 	if (rxNewData) {
+		connectTimer = millis();
 		char *data = rxBuff;
 		Serial.print(data);
-		ui.Text[0].DrawText(data);
+		//ui.Text[0].DrawText(data);
 		
 		if (strSkim(&data, "WEIGHTRAW?")) {
 			btSerial.println(sens.GetRawData());
@@ -87,8 +94,7 @@ void Bluetooth_TypeDef::Handler() {
 		}
 		else if (strSkim(&data, "TEXT")) {
 			int8_t n = atoi(data) - 1;
-			if (n >= 1 && n < 5) {
-				// Disable text1 temporarily for debug purpose.
+			if (n >= 0 && n < 5) {
 				data += 1;
 				if (strSkim(&data, ":")) {
 					ui.Text[n].DrawText(data);
@@ -106,5 +112,22 @@ void Bluetooth_TypeDef::Handler() {
 		}
 		rxNewData = 0;
 		memset(rxBuff, 0, 200);
+	}
+	
+	if (millis() - connectTimer >= 5000 && connected) {
+		connected = 0;
+		ui.Text[0].DrawText("");
+		ui.Text[1].DrawText("Open");
+		ui.Text[2].DrawText("BOWELL App");
+		ui.Text[3].DrawText("on Smartphone");
+		ui.Text[4].DrawText("");
+	}
+	else if (millis() - connectTimer < 5000 && !connected) {
+		connected = 1;
+		ui.Text[0].DrawText("");
+		ui.Text[1].DrawText("");
+		ui.Text[2].DrawText("");
+		ui.Text[3].DrawText("");
+		ui.Text[4].DrawText("");		
 	}
 }

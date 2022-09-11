@@ -11,6 +11,8 @@ UserInterface_TypeDef ui;
 
 Adafruit_ST7789 lcd(TFT_CS, TFT_DC, TFT_RST);
 
+bool startup = 1;
+
 void UserInterface_TypeDef::SetBrightness(uint8_t bright) {
 	ledcWrite(0, bright * 2.55);
 }
@@ -38,7 +40,7 @@ void UserInterface_TypeDef::Init() {
 }
 
 void UserInterface_TypeDef::Handler() {
-	if (millis() - dispTimer >= 250) {
+	if (millis() - dispTimer >= 250 || startup) {
 		
 		uint32_t statBarColor = RGB565_DARKCYAN;
 		GFXcanvas16 statBar(210, 25);
@@ -65,6 +67,29 @@ void UserInterface_TypeDef::Handler() {
 		
 		dispTimer = millis();
 	}
+	startup = 0;
+}
+
+void UserInterface_TypeDef::BatteryScreen() {
+	if (millis() - dispTimer >= 250 || startup) {
+		
+		uint32_t battColor = RGB565_WHITE;
+		GFXcanvas16 battInfo(200, 100);
+		battInfo.fillScreen(battColor);
+		battInfo.fillRoundRect(0, 4, 25, 18, 2, RGB565_BLACK);
+		battInfo.fillRect(25, 10, 3, 6, RGB565_BLACK);
+		
+		uint8_t bar = round(sys.GetBattPercentage() * 0.21);
+		uint32_t barColor = (sys.GetBattPercentage() > 20 ? battColor : RGB565_RED);
+		barColor = (sys.IsCharging() ? RGB565_ORANGE : barColor);
+		barColor = (sys.IsCharged() ? RGB565_GREEN : barColor);
+		battInfo.fillRoundRect(2, 6, bar, 14, 1, barColor);
+		
+		lcd.drawRGBBitmap(50, 0, battInfo.getBuffer(), 30, 25);
+		
+		dispTimer = millis();
+	}
+	startup = 0;
 }
 
 void TextBox_TypeDef::DrawText(const char *txt) {

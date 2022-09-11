@@ -27,7 +27,7 @@ private:
 	int32_t rawData;
 	int32_t rawDataFiltered;
 	float weight;
-	uint32_t offset;
+	int32_t offset;
 	float filterKf;
 
 };

@@ -38,6 +38,7 @@ struct UserInterface_TypeDef {
 	void Handler();
 	void SetBrightness(uint8_t bright);
 	void BootScreen();
+	void BatteryScreen();
 	TextBox_TypeDef Text[5] = { TextBox_TypeDef(0, 30), TextBox_TypeDef(0, 70), TextBox_TypeDef(0, 110), TextBox_TypeDef(0, 150), TextBox_TypeDef(0, 190) };
 	
 private:

@@ -12,11 +12,12 @@ struct Param_TypeDef {
 
 struct Config_TypeDef {
 	Param_TypeDef param;
+	void RestoreDefault();
 	void Save();
 	void Read();
 	void Init();
 };
 
-Param_TypeDef defParam = { 1, 5, 1, 30, 0xAA };
+Param_TypeDef defParam = { 1, 5, 1.75, 30, 0xAA };
 
 extern Config_TypeDef config;

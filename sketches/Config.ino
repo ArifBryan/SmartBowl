@@ -18,7 +18,11 @@ void Config_TypeDef::Init() {
 	EEPROM.begin(sizeof(Param_TypeDef));
 	Read();
 	if (param.key != 0xAA) {
-		param = defParam;
-		Save();
+		RestoreDefault();
 	}
+}
+
+void Config_TypeDef::RestoreDefault() {
+	param = defParam;
+	Save();
 }

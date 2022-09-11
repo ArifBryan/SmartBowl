@@ -33,6 +33,13 @@ void System_TypeDef::Init(void(*Startup_Callback)(void), void(*Shutdown_Callback
 	Startup_Callback();
 	vBat = analogRead(VBAT_SENSE) * vBatCal;
 	delay(100);
+	pwrBtnTmr = millis();
+	while (!digitalRead(BTN_PWR)) {
+		if (millis() - pwrBtnTmr >= 2000) {
+			config.RestoreDefault();
+		}
+	}
+	pwrBtnTmr = millis();
 }
 
 void System_TypeDef::Handler() {
