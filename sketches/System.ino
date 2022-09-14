@@ -28,7 +28,7 @@ void System_TypeDef::Init(void(*Startup_Callback)(void), void(*Shutdown_Callback
 	digitalWrite(PWR_LATCH, HIGH);
 	delay(1);
 	Startup_Callback();
-	vBat = analogRead(VBAT_SENSE) * vBatCal;
+	vBat = analogRead(VBAT_SENSE) * vBatCal; 
 	delay(100);
 	pwrBtnTmr = millis();
 	while (!digitalRead(BTN_PWR)) {
@@ -42,6 +42,9 @@ void System_TypeDef::Init(void(*Startup_Callback)(void), void(*Shutdown_Callback
 }
 
 void System_TypeDef::Handler() {
+	if (vBat == 0) {
+		vBat = analogRead(VBAT_SENSE) * vBatCal; 
+	}
 	if (!digitalRead(BTN_PWR) && chgStatus == 0) {
 		if (millis() - pwrBtnTmr >= 1000) {
 			PowerOff();
@@ -55,6 +58,9 @@ void System_TypeDef::Handler() {
 		if (!digitalRead(CHG_STA)) {
 			// Charging
 			chgStatus = 1;
+			if (vBat >= 4200) {
+				chgStatus = 2;
+			}
 		}
 		else {
 			// Charged
