@@ -3,22 +3,39 @@
 #include "UserInterface.h"
 #include "Sensor.h"
 #include "Config.h"
+#include "Pins.h"
+
+uint32_t dispChargeTimer;
 
 void Startup_Handler() {
+	setCpuFrequencyMhz(20);
 	config.Init();
 	sys.SetVbatCalValue(config.param.VbatCal);
 	sens.SetCalValue(config.param.SensCal);
 	ui.Init();
+	sens.Init();
 	if (!sys.IsCharging()) {
-		sens.Init();
 		bt.Init();
 		ui.BootScreen();
+		ui.SetBrightness(config.param.Bright);
 	}
-	ui.SetBrightness(config.param.Bright);
+	else {
+		btStop();
+	}
 	if (sys.IsCharging()) {
+		ui.SetBrightness(5);
+		ui.BatteryScreen();
+		dispChargeTimer = millis();
 		while (sys.IsCharging() || sys.IsCharged()) {
+			if (!digitalRead(BTN_PWR)) {
+				ui.SetBrightness(5);
+				ui.BatteryScreen();
+				dispChargeTimer = millis();
+			}
 			sys.Handler();
-			ui.BatteryScreen();
+			if (millis() - dispChargeTimer >= 1500) {
+				ui.SetBrightness(0);
+			}
 		}
 		sys.PowerOff();
 	}
