@@ -73,7 +73,7 @@ void System_TypeDef::Handler() {
 			powerOffTimer = millis();
 		}
 		
-		if (IsBattLow() || millis() - powerOffTimer >= 15000) {
+		if ((IsBattLow() || millis() - powerOffTimer >= 15000) && chgStatus == 0) {
 			PowerOff();
 		}
 		

@@ -1,7 +1,7 @@
 #pragma once
 
 #define FW_VER	"1.6"
-#define BATT_LOW_THRES	15
+#define BATT_LOW_THRES	10
 
 struct System_TypeDef {
 	void Init(void(*Startup_Handler)(void), void(*Shutdown_Handler)(void));
