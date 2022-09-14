@@ -1,9 +1,7 @@
 #pragma once
 
-#define FW_VER	"1.2"
-
-#define POWERON_CAUSE_BTN	1
-#define POWERON_CAUSE_CHG	2
+#define FW_VER	"1.6"
+#define BATT_LOW_THRES	10
 
 struct System_TypeDef {
 	void Init(void(*Startup_Handler)(void), void(*Shutdown_Handler)(void));
@@ -19,22 +17,25 @@ struct System_TypeDef {
 		return vBat;
 	}
 	uint8_t GetBattPercentage() {
-		int8_t percent = (vBat - 3700) / 5;
+		int16_t percent = round((vBat - 3700) / 5);
 		percent = (percent < 0 ? 0 : (percent > 100 ? 100 : percent));
 		return percent;
 	}
 	void SetVbatCalValue(float cal) {
 		vBatCal = cal;
 	}
+	bool IsBattLow() {
+		return GetBattPercentage() <= BATT_LOW_THRES;
+	}
 	
 private:
 	void(*Shutdown_Handler)(void);
 	uint32_t pwrBtnTmr;
-	uint8_t powerOnCause;
 	uint16_t vBat;
 	float vBatCal = 1;
 	uint32_t sysTimer;
 	uint8_t chgStatus;
+	uint32_t powerOffTimer;
 };
 
 extern System_TypeDef sys;

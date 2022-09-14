@@ -9,10 +9,19 @@ void Startup_Handler() {
 	sys.SetVbatCalValue(config.param.VbatCal);
 	sens.SetCalValue(config.param.SensCal);
 	ui.Init();
-	sens.Init();
-	bt.Init();
-	ui.BootScreen();
+	if (!sys.IsCharging()) {
+		sens.Init();
+		bt.Init();
+		ui.BootScreen();
+	}
 	ui.SetBrightness(config.param.Bright);
+	if (sys.IsCharging()) {
+		while (sys.IsCharging() || sys.IsCharged()) {
+			sys.Handler();
+			ui.BatteryScreen();
+		}
+		sys.PowerOff();
+	}
 }
 
 void Shutdown_Handler() {
@@ -21,6 +30,11 @@ void Shutdown_Handler() {
 
 void setup(){
 	sys.Init(Startup_Handler, Shutdown_Handler);
+	if (sys.IsBattLow()) {
+		ui.BatteryScreen();
+		delay(1500);
+		sys.PowerOff();
+	}
 }
 
 void loop(){

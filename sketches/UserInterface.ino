@@ -37,6 +37,7 @@ void UserInterface_TypeDef::Init() {
 	lcd.setTextColor(RGB565_DARKGREY);
 	lcd.init(240, 240, SPI_MODE2);
 	lcd.setRotation(3);
+	lcd.fillScreen(RGB565_WHITE);
 }
 
 void UserInterface_TypeDef::Handler() {
@@ -66,30 +67,30 @@ void UserInterface_TypeDef::Handler() {
 		lcd.drawRGBBitmap(210, 0, battInfo.getBuffer(), 30, 25);
 		
 		dispTimer = millis();
+		startup = 0;
 	}
-	startup = 0;
 }
 
 void UserInterface_TypeDef::BatteryScreen() {
 	if (millis() - dispTimer >= 250 || startup) {
 		
 		uint32_t battColor = RGB565_WHITE;
-		GFXcanvas16 battInfo(200, 100);
+		GFXcanvas16 battInfo(200, 140);
 		battInfo.fillScreen(battColor);
-		battInfo.fillRoundRect(0, 4, 25, 18, 2, RGB565_BLACK);
-		battInfo.fillRect(25, 10, 3, 6, RGB565_BLACK);
+		battInfo.fillRoundRect(0, 0, 190, 140, 4, RGB565_BLACK);
+		battInfo.fillRect(190, 50, 10, 40, RGB565_BLACK);
 		
-		uint8_t bar = round(sys.GetBattPercentage() * 0.21);
+		uint8_t bar = round(sys.GetBattPercentage() * 1.80);
 		uint32_t barColor = (sys.GetBattPercentage() > 20 ? battColor : RGB565_RED);
 		barColor = (sys.IsCharging() ? RGB565_ORANGE : barColor);
 		barColor = (sys.IsCharged() ? RGB565_GREEN : barColor);
-		battInfo.fillRoundRect(2, 6, bar, 14, 1, barColor);
+		battInfo.fillRoundRect(5, 5, bar, 130, 2, barColor);
 		
-		lcd.drawRGBBitmap(50, 0, battInfo.getBuffer(), 30, 25);
+		lcd.drawRGBBitmap(20, 50, battInfo.getBuffer(), battInfo.width(), battInfo.height());
 		
 		dispTimer = millis();
+		startup = 0;
 	}
-	startup = 0;
 }
 
 void TextBox_TypeDef::DrawText(const char *txt) {

@@ -21,7 +21,7 @@ void Bluetooth_TypeDef::Init() {
 	Serial.begin(115200);
 	btSerial.begin("BOWELL");
 	connected = 1;
-	connectTimer = millis() + 5000;
+	connectTimer = millis() - 5001;
 }
 
 bool Bluetooth_TypeDef::IsConnected() {
@@ -48,10 +48,13 @@ void Bluetooth_TypeDef::Handler() {
 	}
 	
 	if (rxNewData) {
-		connectTimer = millis();
 		char *data = rxBuff;
+		Serial.print("Rx:");
 		Serial.print(data);
 		//ui.Text[0].DrawText(data);
+		if (strlen(data) > 1) {
+			connectTimer = millis();
+		}
 		
 		if (strSkim(&data, "WEIGHTRAW?")) {
 			btSerial.println(sens.GetRawData());
