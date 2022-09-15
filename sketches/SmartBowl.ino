@@ -8,7 +8,7 @@
 uint32_t dispChargeTimer;
 
 void Startup_Handler() {
-	setCpuFrequencyMhz(20);
+	setCpuFrequencyMhz(80);
 	config.Init();
 	sys.SetVbatCalValue(config.param.VbatCal);
 	sens.SetCalValue(config.param.SensCal);
@@ -20,19 +20,21 @@ void Startup_Handler() {
 		ui.SetBrightness(config.param.Bright);
 	}
 	else {
+		setCpuFrequencyMhz(20);
 		btStop();
 	}
 	if (sys.IsCharging()) {
+		sys.Handler();
 		ui.SetBrightness(5);
 		ui.BatteryScreen();
 		dispChargeTimer = millis();
 		while (sys.IsCharging() || sys.IsCharged()) {
+			sys.Handler();
 			if (!digitalRead(BTN_PWR)) {
 				ui.SetBrightness(5);
 				ui.BatteryScreen();
 				dispChargeTimer = millis();
 			}
-			sys.Handler();
 			if (millis() - dispChargeTimer >= 1500) {
 				ui.SetBrightness(0);
 			}

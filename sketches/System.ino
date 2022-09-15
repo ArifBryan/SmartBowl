@@ -45,7 +45,7 @@ void System_TypeDef::Handler() {
 	if (vBat == 0) {
 		vBat = analogRead(VBAT_SENSE) * vBatCal; 
 	}
-	if (!digitalRead(BTN_PWR) && chgStatus == 0) {
+	if (!digitalRead(BTN_PWR)) {
 		if (millis() - pwrBtnTmr >= 1000) {
 			PowerOff();
 		}
@@ -58,9 +58,9 @@ void System_TypeDef::Handler() {
 		if (!digitalRead(CHG_STA)) {
 			// Charging
 			chgStatus = 1;
-			if (vBat >= 4200) {
-				chgStatus = 2;
-			}
+//			if (vBat >= 4200) {
+//				chgStatus = 2;
+//			}
 		}
 		else {
 			// Charged
