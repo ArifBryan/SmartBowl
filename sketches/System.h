@@ -1,6 +1,6 @@
 #pragma once
 
-#define FW_VER	"2.1"
+#define FW_VER	"2.4"
 #define BATT_LOW_THRES	10
 
 struct System_TypeDef {

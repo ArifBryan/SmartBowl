@@ -14,7 +14,7 @@ void System_TypeDef::Init(void(*Startup_Callback)(void), void(*Shutdown_Callback
 	pwrBtnTmr = millis();
 	while (1) {
 		if (!digitalRead(BTN_PWR) || !digitalRead(CHG_CON)) {
-			if (millis() - pwrBtnTmr >= 500) {
+			if (millis() - pwrBtnTmr >= 200) {
 				if (!digitalRead(CHG_CON)) {
 					chgStatus = 1;
 				}
@@ -75,11 +75,11 @@ void System_TypeDef::Handler() {
 	if (millis() - sysTimer >= 500) {
 		vBat = (analogRead(VBAT_SENSE) * vBatCal + (vBat * VBAT_FILTER_KF)) / (VBAT_FILTER_KF + 1);
 		
-		if (bt.IsConnected()) {
+		if (bt.IsConnected() || chgStatus) {
 			powerOffTimer = millis();
 		}
 		
-		if ((IsBattLow() || millis() - powerOffTimer >= 15000) && chgStatus == 0) {
+		if ((IsBattLow() || millis() - powerOffTimer >= 50000) && chgStatus == 0) {
 			PowerOff();
 		}
 		

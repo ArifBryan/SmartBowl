@@ -5,7 +5,7 @@
 #include <Fonts/FreeSans12pt7b.h>
 #include <Fonts/FreeSans18pt7b.h>
 #include <Fonts/FreeSans24pt7b.h>
-#include "Icons.h"
+#include "Logo.h"
 
 UserInterface_TypeDef ui;
 
@@ -18,10 +18,9 @@ void UserInterface_TypeDef::SetBrightness(uint8_t bright) {
 }
 
 void UserInterface_TypeDef::BootScreen() {
-	lcd.fillScreen(RGB565_WHITE);
-	lcd.drawRGBBitmap(20, 97, BOWELL_icon, BOWELL_ICON_WIDTH, BOWELL_ICON_HEIGHT);
+	lcd.drawRGBBitmap(0, 51, BOWELL_Logo, BOWELL_Logo_Width, BOWELL_Logo_Height);
 	lcd.setCursor(80, 235);
-	lcd.print("Ver.");
+	lcd.print("Ver. ");
 	lcd.print(FW_VER);
 	SetBrightness(50);
 	delay(2000);
