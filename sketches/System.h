@@ -19,6 +19,7 @@ struct System_TypeDef {
 	uint8_t GetBattPercentage() {
 		int16_t percent = round((vBat - 3700) / 5);
 		percent = (percent < 0 ? 0 : (percent > 100 ? 100 : percent));
+		if (chgStatus == 2) {percent = 100;}
 		return percent;
 	}
 	void SetVbatCalValue(float cal) {
