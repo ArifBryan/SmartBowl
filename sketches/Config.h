@@ -18,6 +18,6 @@ struct Config_TypeDef {
 	void Init();
 };
 
-Param_TypeDef defParam = { 1, 5, 1.75, 30, 0xAA };
+Param_TypeDef defParam = { 1, 8, 1.75, 30, 0xAA };
 
 extern Config_TypeDef config;

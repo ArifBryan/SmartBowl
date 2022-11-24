@@ -11,10 +11,10 @@ void Sensor_TypeDef::Init() {
 }
 
 void Sensor_TypeDef::Handler() {
-	if (millis() - sampleTmr >= 150) {
-		rawData = LoadCell.read() - offset;
+	if (millis() - sampleTmr >= 100) {
+		rawData = LoadCell.read();
 		rawDataFiltered = (rawData + (rawDataFiltered * filterKf)) / (filterKf + 1);
-		weight = rawDataFiltered * cal;
+		weight = (rawDataFiltered - offset) * cal;
 		
 		sampleTmr = millis();
 	}

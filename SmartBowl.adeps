@@ -9,13 +9,5 @@
         <Version>1.0.6</Version>
       </Key>
     </Dependency>
-    <Dependency>
-      <Type>Library</Type>
-      <Key>
-        <Packager>Bogdan Necula &lt;bogde@bogde.ro&gt;, Andreas Motl &lt;andreas.motl@elmyra.de&gt;</Packager>
-        <Name>HX711 Arduino Library</Name>
-        <Version>0.7.5</Version>
-      </Key>
-    </Dependency>
   </Dependencies>
 </ArduinoDependencyCollection>
